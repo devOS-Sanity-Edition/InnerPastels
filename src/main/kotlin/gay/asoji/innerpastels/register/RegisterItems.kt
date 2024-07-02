@@ -19,7 +19,7 @@ object RegisterItems {
      * @property item An Item to be used
      */
     fun registerItem(modID: String, name: String, item: Item): Item {
-        return Registry.register(BuiltInRegistries.ITEM, ResourceLocation(modID, name), item)
+        return Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(modID, name), item)
     }
 
     /**
@@ -42,7 +42,7 @@ object RegisterItems {
      */
     fun registerBlockItem(modID: String, name: String, block: Block, properties: Item.Properties): BlockItem {
         return Registry.register(
-            BuiltInRegistries.ITEM, ResourceLocation(modID, name), BlockItem(block, properties)
+            BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(modID, name), BlockItem(block, properties)
         )
     }
 }

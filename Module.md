@@ -7,8 +7,7 @@ src/main/kotlin
 └───gay.asoji.innerpastels
     ├───blocks
     ├───client
-    │   └───screens
-    │       └───imgui
+    │   └───imgui
     ├───crab
     ├───datagen
     ├───items
@@ -34,7 +33,7 @@ Custom Block classes or Block helpers
 
 # Package gay.asoji.innerpastels.client
 
-Client related classes, mainly contains the `ImGui` package
+Client related classes, mainly contains the `ImGui` impl
 
 # Package gay.asoji.innerpastels.datagen
 

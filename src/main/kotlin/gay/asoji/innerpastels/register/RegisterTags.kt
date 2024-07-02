@@ -16,7 +16,7 @@ object RegisterTags {
      * @property name Associated block tag name
      */
     fun createBlockTag(name: String): TagKey<Block> {
-        return TagKey.create(Registries.BLOCK, ResourceLocation(InnerPastels.MOD_ID, name))
+        return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(InnerPastels.MOD_ID, name))
     }
 
     /**
@@ -24,6 +24,6 @@ object RegisterTags {
      * @property name Associated item tag name
      */
     fun createItemTag(name: String): TagKey<Item> {
-        return TagKey.create(Registries.ITEM, ResourceLocation(InnerPastels.MOD_ID, name))
+        return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(InnerPastels.MOD_ID, name))
     }
 }

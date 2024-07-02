@@ -41,7 +41,7 @@ import net.minecraft.world.level.material.MapColor
  * @return [Block]
  */
 fun Block.registerBlock(modID: String, name: String): Block =
-    Registry.register(BuiltInRegistries.BLOCK, ResourceLocation(modID, name), this)
+    Registry.register(BuiltInRegistries.BLOCK, ResourceLocation.fromNamespaceAndPath(modID, name), this)
 
 /**
  * Registers an item to the Minecraft registry with the resource location set to the Mod ID
@@ -51,7 +51,7 @@ fun Block.registerBlock(modID: String, name: String): Block =
  */
 fun Block.registerBlockItem(modID: String, name: String): BlockItem = Registry.register(
     BuiltInRegistries.ITEM,
-    ResourceLocation(modID, name),
+    ResourceLocation.fromNamespaceAndPath(modID, name),
     BlockItem(this, Item.Properties())
 )
 

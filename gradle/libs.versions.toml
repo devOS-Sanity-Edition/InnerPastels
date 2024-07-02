@@ -1,9 +1,10 @@
 [versions]
 # The latest versions are available at https://fabricmc.net/develop
-minecraft = "1.20.5"
-fabric-loader = "0.15.10"
-fabric-api = "0.97.6+1.20.5"
-fabric_language_kotlin = "1.10.19+kotlin.1.9.23"
+minecraft = "1.21"
+fabric-loader = "0.15.11"
+fabric-api = "0.100.4+1.21"
+fabric_language_kotlin = "1.11.0+kotlin.2.0.0"
+imgui-java = "1.86.11"
 
 dokka = "1.9.10"
 
@@ -12,6 +13,13 @@ minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
 fabric_loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric-loader" }
 fabric-api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric-api" }
 fabric_language_kotlin = { module = "net.fabricmc:fabric-language-kotlin", version.ref = "fabric_language_kotlin" }
+imgui-binding = { module = "io.github.spair:imgui-java-binding", version.ref = "imgui-java" }
+imgui-lwjgl3 = { module = "io.github.spair:imgui-java-lwjgl3", version.ref = "imgui-java" }
+imgui-native-windows = { module = "io.github.spair:imgui-java-natives-windows", version.ref = "imgui-java" }
+imgui-native-linux = { module = "io.github.spair:imgui-java-natives-linux", version.ref = "imgui-java" }
+
+[bundles]
+imgui = [ "imgui-binding", "imgui-lwjgl3", "imgui-native-linux", "imgui-native-windows" ]
 
 [plugins]
 grgit = { id = "org.ajoberstar.grgit", version = "5.2.1"}

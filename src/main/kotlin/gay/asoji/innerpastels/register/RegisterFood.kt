@@ -38,7 +38,7 @@ object RegisterFood {
         seconds: Int
     ): CandyTooltipItem {
         return Items.registerItem(
-            ResourceLocation(modID, name), CandyTooltipItem(
+            ResourceLocation.fromNamespaceAndPath(modID, name), CandyTooltipItem(
                 Item.Properties().food(
                     FoodProperties.Builder()
                         .nutrition(nutrition)
@@ -65,7 +65,7 @@ object RegisterFood {
      */
     fun registerCandy(modID: String, name: String, candyTranslationString: CandyTranslationString, nutrition: Int, saturation: Int): CandyTooltipItem {
         return Items.registerItem(
-            ResourceLocation(modID, name), CandyTooltipItem(
+            ResourceLocation.fromNamespaceAndPath(modID, name), CandyTooltipItem(
                 Item.Properties().food(
                     FoodProperties.Builder()
                         .nutrition(nutrition)
@@ -162,7 +162,7 @@ object RegisterFood {
      * TODO: Rethink how Ice Cream is done as it's essentially an unused, but registered item, in every version of Softer Pastels.
      */
     fun registerIceCream(modID: String, name: String): Item {
-        return Items.registerItem(ResourceLocation(modID, name), Item(Item.Properties().food(FoodProperties.Builder().nutrition(3).saturationModifier(5f).build()))
+        return Items.registerItem(ResourceLocation.fromNamespaceAndPath(modID, name), Item(Item.Properties().food(FoodProperties.Builder().nutrition(3).saturationModifier(5f).build()))
         )
     }
 }
