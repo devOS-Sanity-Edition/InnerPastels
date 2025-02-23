@@ -1,5 +1,6 @@
 package gay.asoji.innerpastels.mixins;
 
+import com.mojang.blaze3d.TracyFrameCapture;
 import com.mojang.blaze3d.systems.RenderSystem;
 import gay.asoji.innerpastels.client.ImGuiClient;
 import gay.asoji.innerpastels.client.imgui.InnerPastelsImGuiImpl;
@@ -12,8 +13,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(RenderSystem.class)
 public class RenderSystemMixin {
     @Inject(method = "flipFrame", at = @At("HEAD"), remap = false)
-    private static void imgui$renderImGui(long handle, CallbackInfo ci) {
-        InnerPastelsImGuiImpl.INSTANCE.initialize(handle);
+    private static void imgui$renderImGui(long l, TracyFrameCapture tracyFrameCapture, CallbackInfo ci) {
+        InnerPastelsImGuiImpl.INSTANCE.initialize(l);
         InnerPastelsImGuiImpl.INSTANCE.startFrame();
 
         ImGuiClient.INSTANCE.getPanels().forEach((it) -> {

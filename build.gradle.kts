@@ -14,7 +14,7 @@ buildscript {
 }
 
 plugins {
-    kotlin("jvm") version "2.0.0"
+    kotlin("jvm") version "2.1.10"
     `maven-publish`
     java
 
@@ -83,6 +83,7 @@ tasks {
 }
 
 loom {
+    accessWidenerPath.set(File("src/main/resources/innerpastels.accesswidener"))
     tasks {
         fatJar {
             archiveClassifier.set("dev")
@@ -110,7 +111,7 @@ dependencies {
 
     mappings(loom.layered {
         officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-1.21:2024.07.28@zip")
+        parchment("org.parchmentmc.data:parchment-1.21.4:2025.02.16@zip")
     })
 
     //Fabric
@@ -127,7 +128,7 @@ dependencies {
         "natives-linux" to false,
         "natives-macos" to false
     ).forEach { (module, bundled) ->
-        val version = "1.87.1"
+        val version = "1.89.0"
         api("io.github.spair:imgui-java-$module:$version") {
             exclude(group = "org.lwjgl")
         }

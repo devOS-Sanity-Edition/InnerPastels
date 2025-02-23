@@ -10,6 +10,9 @@ import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.food.FoodProperties
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.Items
+import net.minecraft.world.item.component.Consumable
+import net.minecraft.world.item.component.Consumables
+import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect
 
 /**
  * Registers Food Items to be eaten with
@@ -37,19 +40,23 @@ object RegisterFood {
         amplifier: Int,
         seconds: Int
     ): CandyTooltipItem {
-        return Items.registerItem(
-            ResourceLocation.fromNamespaceAndPath(modID, name), CandyTooltipItem(
-                Item.Properties().food(
-                    FoodProperties.Builder()
-                        .nutrition(nutrition)
-                        .saturationModifier(saturation.toFloat())
-                        .fast()
-                        .alwaysEdible()
-                        .effect(MobEffectInstance(effect, seconds.secondsToTicks(), amplifier), 1.0f).build()
-                ),
+        return RegisterItems.registerItem(
+            ResourceLocation.fromNamespaceAndPath(modID, name), Item.Properties().food(
+                FoodProperties.Builder()
+                    .nutrition(nutrition)
+                    .saturationModifier(saturation.toFloat())
+                    .alwaysEdible()
+                    .build(),
+                Consumable.builder()
+                    .onConsume(ApplyStatusEffectsConsumeEffect(MobEffectInstance(effect, seconds.secondsToTicks(), amplifier), 1.0f))
+                    .build()
+            )
+        ) {
+            CandyTooltipItem(
+                it,
                 candyTranslationString
             )
-        ) as CandyTooltipItem
+        }
     }
 
     /**
@@ -64,19 +71,23 @@ object RegisterFood {
      * @return [CandyTooltipItem]
      */
     fun registerCandy(modID: String, name: String, candyTranslationString: CandyTranslationString, nutrition: Int, saturation: Int): CandyTooltipItem {
-        return Items.registerItem(
-            ResourceLocation.fromNamespaceAndPath(modID, name), CandyTooltipItem(
-                Item.Properties().food(
-                    FoodProperties.Builder()
-                        .nutrition(nutrition)
-                        .saturationModifier(saturation.toFloat())
-                        .fast()
-                        .alwaysEdible()
-                        .build()
-                ),
+        return RegisterItems.registerItem(
+            ResourceLocation.fromNamespaceAndPath(modID, name), Item.Properties().food(
+                FoodProperties.Builder()
+                    .nutrition(nutrition)
+                    .saturationModifier(saturation.toFloat())
+                    .alwaysEdible()
+                    .build(),
+                Consumable.builder()
+                    .consumeSeconds(0.8f)
+                    .build()
+            )
+        ) {
+            CandyTooltipItem(
+                it,
                 candyTranslationString
             )
-        ) as CandyTooltipItem
+        }
     }
 
     /**
@@ -162,8 +173,7 @@ object RegisterFood {
      * TODO: Rethink how Ice Cream is done as it's essentially an unused, but registered item, in every version of Softer Pastels.
      */
     fun registerIceCream(modID: String, name: String): Item {
-        return Items.registerItem(
-            ResourceLocation.fromNamespaceAndPath(modID, name), Item(Item.Properties().food(FoodProperties.Builder().nutrition(3).saturationModifier(5f).build()))
-        )
+        return RegisterItems.registerItem(
+            ResourceLocation.fromNamespaceAndPath(modID, name), Item.Properties().food(FoodProperties.Builder().nutrition(3).saturationModifier(5f).build()), ::Item)
     }
 }

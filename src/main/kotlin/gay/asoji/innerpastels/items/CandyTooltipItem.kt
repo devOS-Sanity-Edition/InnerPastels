@@ -8,6 +8,8 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.item.alchemy.PotionContents
+import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect
+import net.minecraft.world.item.consume_effects.ConsumeEffect
 import java.util.*
 
 /**
@@ -25,9 +27,11 @@ class CandyTooltipItem(properties: Properties, val candyTranslationString: Candy
 
         val effects = LinkedList<MobEffectInstance>()
 
-        if (itemStack.components.get(DataComponents.FOOD) != null) {
-            for (effect in itemStack.components.get(DataComponents.FOOD)!!.effects) {
-                effects.add(effect.effect)
+        if (itemStack.components.get(DataComponents.CONSUMABLE) != null) {
+            for (effect in itemStack.components.get(DataComponents.CONSUMABLE)!!.onConsumeEffects) {
+                if (effect is ApplyStatusEffectsConsumeEffect) {
+                    effects.addAll(effect.effects)
+                }
             }
         }
 

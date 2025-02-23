@@ -2,6 +2,8 @@ package gay.asoji.innerpastels.register
 
 import net.minecraft.core.Registry
 import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.core.registries.Registries
+import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.Item
@@ -11,6 +13,17 @@ import net.minecraft.world.level.block.Block
  * Registers Items to be used with
  */
 object RegisterItems {
+    // TODO: document this when im not 05:28am tired from setting shit up
+    fun <T : Item> registerItem(id: ResourceLocation, properties: Item.Properties, itemGetter: (Item.Properties) -> T): T {
+        return registerItem(id.namespace, id.path, properties, itemGetter)
+    }
+
+    fun <T : Item> registerItem(modId: String, name: String, properties: Item.Properties, itemGetter: (Item.Properties) -> T): T {
+        val id = ResourceLocation.fromNamespaceAndPath(modId, name)
+        properties.setId(ResourceKey.create(Registries.ITEM, id))
+        return Registry.register(BuiltInRegistries.ITEM, id, itemGetter.invoke(properties))
+    }
+
     /**
      * Registers an item under the Item Registry, with a resource location of your mod's namespace and item ID, and your defined Item properties
      *
@@ -18,9 +31,9 @@ object RegisterItems {
      * @property name The ID of the Block Item
      * @property item An Item to be used
      */
-    fun registerItem(modID: String, name: String, item: Item): Item {
-        return Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(modID, name), item)
-    }
+//    fun registerItem(modID: String, name: String, item: Item): Item {
+//        return Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(modID, name), item)
+//    }
 
     /**
      * Registers a regular item under the Item Registry, with a normal item property, with a resource location of your mod's namespace and item ID
@@ -29,7 +42,7 @@ object RegisterItems {
      * @property name The ID of the Block Item
      */
     fun registerRegularItem(modID: String, name: String): Item {
-        return registerItem(modID, name, Item(Item.Properties()))
+        return registerItem(modID, name, Item.Properties()) { Item(it) }
     }
 
     /**
@@ -41,8 +54,6 @@ object RegisterItems {
      * @property properties The properties for the Block Item
      */
     fun registerBlockItem(modID: String, name: String, block: Block, properties: Item.Properties): BlockItem {
-        return Registry.register(
-            BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(modID, name), BlockItem(block, properties)
-        )
+        return registerItem(modID, name, properties) { BlockItem(block, it) }
     }
 }

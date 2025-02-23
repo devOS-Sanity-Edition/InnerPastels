@@ -1,10 +1,11 @@
 package gay.asoji.innerpastels.datagen
 
-import net.minecraft.data.models.BlockModelGenerators
-import net.minecraft.data.models.model.ModelLocationUtils
-import net.minecraft.data.models.model.ModelTemplates
-import net.minecraft.data.models.model.TextureMapping
-import net.minecraft.data.models.model.TexturedModel
+import net.minecraft.client.data.models.BlockModelGenerators
+import net.minecraft.client.data.models.model.DelegatedModel
+import net.minecraft.client.data.models.model.ModelLocationUtils
+import net.minecraft.client.data.models.model.ModelTemplates
+import net.minecraft.client.data.models.model.TextureMapping
+import net.minecraft.client.data.models.model.TexturedModel
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.DropExperienceBlock
@@ -52,6 +53,10 @@ object ModelGenerators {
             )
         )
         blockStateModelGenerator.delegateItemModel(slab, bottomSlab)
+    }
+
+    private fun BlockModelGenerators.delegateItemModel(block: Block, modelLocation: ResourceLocation) {
+        this.modelOutput.accept(ModelLocationUtils.getModelLocation(block.asItem()), DelegatedModel(modelLocation))
     }
 
     /**
