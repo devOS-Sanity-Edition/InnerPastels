@@ -171,7 +171,6 @@ object Properties {
             .isSuffocating(Blocks::never)
             .isViewBlocking(Blocks::never)
             .ignitedByLava()
-            .requiresCorrectToolForDrops()
             .pushReaction(PushReaction.DESTROY)
             .isRedstoneConductor(Blocks::never)
     }
@@ -191,7 +190,6 @@ object Properties {
             .ignitedByLava()
             .pushReaction(PushReaction.DESTROY)
             .isRedstoneConductor(Blocks::never)
-            .requiresCorrectToolForDrops()
             .lightLevel { blockStatex: BlockState? -> 5 }
             .hasPostProcess(Blocks::always).emissiveRendering(Blocks::always)
     }
