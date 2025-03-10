@@ -16,11 +16,13 @@ public class RenderSystemMixin {
         InnerPastelsImGuiImpl.INSTANCE.initialize(handle);
         InnerPastelsImGuiImpl.INSTANCE.startFrame();
 
-        ImGuiClient.INSTANCE.getPanels().forEach((it) -> {
-                    it.theme();
-                    it.render(new ImBoolean());
-                }
-        );
+        if (ImGuiClient.INSTANCE.isImGuiRenderEnabled()) {
+            ImGuiClient.INSTANCE.getPanels().forEach((it) -> {
+                        it.theme();
+                        it.render(new ImBoolean());
+                    }
+            );
+        }
         
         InnerPastelsImGuiImpl.INSTANCE.endFrame();
     }
