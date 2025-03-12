@@ -16,44 +16,29 @@ object Properties {
      * Default properties for Pastel Block, being a copy of WHITE_CONCRETE
      */
     fun pastelBlock(): BlockBehaviour.Properties {
-        return BlockBehaviour.Properties.of()
-            .instrument(NoteBlockInstrument.BASEDRUM)
+        return BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_CONCRETE)
             .requiresCorrectToolForDrops()
-            .strength(1.8F)
     }
 
     /**
      * Default properties for Pastel Powder Block, being a copy of WHITE_CONCRETE_POWDER
      */
     fun pastelPowder(): BlockBehaviour.Properties {
-        return BlockBehaviour.Properties.of()
-            .instrument(NoteBlockInstrument.SNARE)
-            .strength(0.5F)
-            .sound(SoundType.SAND)
+        return BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_CONCRETE_POWDER)
     }
 
     /**
      * Default properties for Pastel Glass Pane, being a copy of WHITE_STAINED_GLASS, with vision not being blocked, and can't suffocate
      */
     fun pastelGlassPane(): BlockBehaviour.Properties {
-        return BlockBehaviour.Properties.of()
-            .instrument(NoteBlockInstrument.HAT)
-            .strength(0.3F)
-            .sound(SoundType.GLASS)
-            .noOcclusion()
-            .requiresCorrectToolForDrops()
-            .isViewBlocking(Blocks::never)
-            .isSuffocating(Blocks::never)
+        return BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_STAINED_GLASS_PANE)
     }
 
     /**
      * Default properties for Pastel Fence
      */
     fun pastelFence(): BlockBehaviour.Properties {
-        return BlockBehaviour.Properties.of()
-            .instrument(NoteBlockInstrument.BASEDRUM)
-            .strength(2.0F, 6.0F)
-            .sound(SoundType.STONE)
+        return BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE)
             .requiresCorrectToolForDrops()
     }
 
@@ -61,10 +46,7 @@ object Properties {
      * Default properties for Pastel Fence Gate
      */
     fun pastelFenceGate(): BlockBehaviour.Properties {
-        return BlockBehaviour.Properties.of()
-            .instrument(NoteBlockInstrument.BASEDRUM)
-            .strength(2.0F, 6.0F)
-            .forceSolidOn()
+        return BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE)
             .requiresCorrectToolForDrops()
     }
 
@@ -72,52 +54,35 @@ object Properties {
      * Default properties for Pastel Wall
      */
     fun pastelWall(): BlockBehaviour.Properties {
-        return BlockBehaviour.Properties.of()
-            .instrument(NoteBlockInstrument.BASEDRUM)
-            .strength(1.5F, 6.0F)
-            .forceSolidOn() // i saw this was there for STONE_BRICKS so it's needed
-            .requiresCorrectToolForDrops()
+        return BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL)
     }
 
     /**
      * Default properties for Pastel Slab
      */
     fun pastelSlab(): BlockBehaviour.Properties {
-        return BlockBehaviour.Properties.of()
-            .instrument(NoteBlockInstrument.BASEDRUM)
-            .strength(2.0F, 6.0F)
-            .requiresCorrectToolForDrops()
+        return BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_SLAB)
     }
 
     /**
      * Default properties for Pastel Stair
      */
     fun pastelStair(): BlockBehaviour.Properties {
-        return BlockBehaviour.Properties.of()
-            .instrument(NoteBlockInstrument.BASEDRUM)
-            .strength(1.5F, 6.0F)
-            .requiresCorrectToolForDrops()
+        return BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_STAIRS)
     }
 
     /**
      * Default properties for Pastel Wool
      */
     fun pastelWool(): BlockBehaviour.Properties {
-        return BlockBehaviour.Properties.of()
-            .instrument(NoteBlockInstrument.GUITAR)
-            .strength(0.8F)
-            .sound(SoundType.WOOL)
-            .ignitedByLava()
+        return BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL)
     }
 
     /**
      * Default properties for Pastel Light
      */
     fun pastelLight(): BlockBehaviour.Properties {
-        return BlockBehaviour.Properties.of()
-            .instrument(NoteBlockInstrument.PLING)
-            .strength(0.3F)
-            .sound(SoundType.GLASS)
+        return BlockBehaviour.Properties.ofFullCopy(Blocks.GLOWSTONE)
             .lightLevel { blockStatex: BlockState? -> 15 }
             .isRedstoneConductor(Blocks::never)
     }
@@ -126,26 +91,14 @@ object Properties {
      * Default properties for Pastel Carpet
      */
     fun pastelCarpet(): BlockBehaviour.Properties {
-        return BlockBehaviour.Properties.of()
-            .strength(0.1F)
-            .sound(SoundType.WOOL)
-            .ignitedByLava()
+        return BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_CARPET)
     }
 
     /**
      * Default properties for Pastel Glass
      */
     fun pastelGlass(): BlockBehaviour.Properties {
-        return BlockBehaviour.Properties.of()
-            .instrument(NoteBlockInstrument.HAT)
-            .strength(0.3F)
-            .sound(SoundType.GLASS)
-            .noOcclusion()
-            .isValidSpawn(Blocks::never)
-            .isRedstoneConductor(Blocks::never)
-            .requiresCorrectToolForDrops()
-            .isSuffocating(Blocks::never)
-            .isViewBlocking(Blocks::never)
+        return BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_STAINED_GLASS)
     }
 
     // **UNUSED**
@@ -162,34 +115,14 @@ object Properties {
      * Default properties for Pastel Leaves
      */
     fun pastelLeaves(): BlockBehaviour.Properties {
-        return BlockBehaviour.Properties.of()
-            .strength(0.2F)
-            .randomTicks()
-            .sound(SoundType.GRASS)
-            .noOcclusion()
-            .isValidSpawn(Blocks::ocelotOrParrot)
-            .isSuffocating(Blocks::never)
-            .isViewBlocking(Blocks::never)
-            .ignitedByLava()
-            .pushReaction(PushReaction.DESTROY)
-            .isRedstoneConductor(Blocks::never)
+        return BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)
     }
 
     /**
      * Default properties for Pastel Brightened Leaves
      */
     fun pastelBrightenedLeaves(): BlockBehaviour.Properties {
-        return BlockBehaviour.Properties.of()
-            .strength(0.2F)
-            .randomTicks()
-            .sound(SoundType.GRASS)
-            .noOcclusion()
-            .isValidSpawn(Blocks::ocelotOrParrot)
-            .isSuffocating(Blocks::never)
-            .isViewBlocking(Blocks::never)
-            .ignitedByLava()
-            .pushReaction(PushReaction.DESTROY)
-            .isRedstoneConductor(Blocks::never)
+        return BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)
             .lightLevel { blockStatex: BlockState? -> 5 }
             .hasPostProcess(Blocks::always).emissiveRendering(Blocks::always)
     }
@@ -198,62 +131,42 @@ object Properties {
      * Default properties for Pastel Log
      */
     fun pastelLogs(): BlockBehaviour.Properties {
-        return BlockBehaviour.Properties.of()
-            .instrument(NoteBlockInstrument.BASS)
-            .strength(2.0F)
-            .sound(SoundType.WOOD)
-            .ignitedByLava()
+        return BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)
     }
 
     /**
      * Default properties for Pastel Plank
      */
     fun pastelPlanks(): BlockBehaviour.Properties {
-        return BlockBehaviour.Properties.of()
-            .instrument(NoteBlockInstrument.BASS)
-            .strength(2.0F, 3.0F)
-            .sound(SoundType.WOOD)
-            .ignitedByLava()
+        return BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)
     }
 
     /**
      * Default properties for Pastel Sand
      */
     fun pastelSand(): BlockBehaviour.Properties {
-        return BlockBehaviour.Properties.of()
-            .instrument(NoteBlockInstrument.SNARE)
-            .strength(0.5F)
-            .sound(SoundType.SAND)
+        return BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)
     }
 
     /**
      * Default properties for Pastel Ore
      */
     fun pastelOre(): BlockBehaviour.Properties {
-        return BlockBehaviour.Properties.of()
-            .instrument(NoteBlockInstrument.BASEDRUM)
-            .strength(3.0F, 3.0F)
-            .sound(SoundType.STONE)
-            .requiresCorrectToolForDrops()
+        return BlockBehaviour.Properties.ofFullCopy(Blocks.COAL_ORE)
     }
 
     /**
      * Default properties for Pastel Dirt
      */
     fun pastelDirt(): BlockBehaviour.Properties {
-        return BlockBehaviour.Properties.of()
-            .strength(0.5F)
-            .sound(SoundType.GRAVEL)
+        return BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT)
     }
 
     /**
      * Default properties for Pastel Grass
      */
     fun pastelGrass(): BlockBehaviour.Properties {
-        return BlockBehaviour.Properties.of()
-            .randomTicks()
-            .strength(0.6F)
-            .sound(SoundType.GRASS)
+        return BlockBehaviour.Properties.ofFullCopy(Blocks.GRASS_BLOCK)
     }
 
 }
