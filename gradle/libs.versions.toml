@@ -1,11 +1,11 @@
 [versions]
 # The latest versions are available at https://fabricmc.net/develop
-minecraft = "1.21"
-fabric-loader = "0.15.11"
-fabric-api = "0.102.0+1.21"
-fabric-language-kotlin = "1.11.0+kotlin.2.0.0"
+minecraft = "1.21.1"
+fabric-loader = "0.16.10"
+fabric-api = "0.115.1+1.21.1"
+fabric-language-kotlin = "1.13.1+kotlin.2.1.10"
 dokka = "1.9.10"
-sodium_version = "mc1.21-0.6.0-beta.1-fabric"
+sodium_version = "mc1.21.1-0.6.9-fabric"
 
 
 [libraries]
@@ -17,6 +17,6 @@ sodium = { module = "maven.modrinth:sodium", version.ref = "sodium_version" }
 
 [plugins]
 grgit = { id = "org.ajoberstar.grgit", version = "5.2.1"}
-fabric_loom = { id = "fabric-loom", version = "1.7-SNAPSHOT" }
+fabric_loom = { id = "fabric-loom", version = "1.10-SNAPSHOT" }
 dokka = { id = "org.jetbrains.dokka", version = "1.9.10" }
 shadow = { id = "com.gradleup.shadow", version = "8.3.0" } # ngl i'm very reluctant about this but what can i do rly
