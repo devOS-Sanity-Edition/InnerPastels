@@ -606,4 +606,30 @@ object RecipeGenerators {
             .unlockedBy(RecipeProvider.getHasName(outputCottonCandyItem), RecipeProvider.has(outputCottonCandyItem))
             .save(exporter)
     }
+
+    /**
+     * Registers a Shapeless Crafting Recipe for Pastel Planks
+     *
+     * Example:
+     * ```kotlin
+     * class SofterPastelsRecipeProvider(output: FabricDataOutput) : FabricRecipeProvider(output) {
+     *     override fun buildRecipes(exporter: RecipeOutput) {
+     *         registerPastelPlanksItem(exporter, DesolatedPastelsBlocks.WHITE_LOG, DesolatedPastelsBlocks.WHITE_PLANKS)
+     *     }
+     * }
+     * ```
+     *
+     * @property exporter The RecipeOutput used by your Recipe Provider
+     * @property inputPastelLogItem The Log Item used for input
+     * @property outputPlanksItem The Pastel Planks Item outputted
+     *
+     * @return A JSON file provided by your Recipe Provider datagen that has the shapeless crafting recipe for making Pastel Planks
+     */
+    fun registerPastelPlanksItem(exporter: RecipeOutput, inputPastelLogItem: ItemLike, outputPlanksItem: ItemLike) {
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, outputPlanksItem, 4)
+            .requires(inputPastelLogItem)
+            .unlockedBy(RecipeProvider.getHasName(inputPastelLogItem), RecipeProvider.has(inputPastelLogItem))
+            .unlockedBy(RecipeProvider.getHasName(outputPlanksItem), RecipeProvider.has(outputPlanksItem))
+            .save(exporter)
+    }
 }
