@@ -128,21 +128,21 @@ $dokka.location:gay.asoji.innerpastels.misc/CandyTranslationString/valueOf/#kotl
 $dokka.location:gay.asoji.innerpastels.misc/CandyTranslationString/values/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.misc/-candy-translation-string/values.html
 $dokka.location:gay.asoji.innerpastels.misc/DevDisclaimer///PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.misc/-dev-disclaimer/index.html
 $dokka.location:gay.asoji.innerpastels.misc/DevDisclaimer/init/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.misc/-dev-disclaimer/init.html
-$dokka.location:gay.asoji.innerpastels.mixins////PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins/index.html
-$dokka.location:gay.asoji.innerpastels.mixins/GLFWInitMixin///PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins/-g-l-f-w-init-mixin/index.html
-$dokka.location:gay.asoji.innerpastels.mixins/GLFWInitMixin/GLFWInitMixin/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins/-g-l-f-w-init-mixin/-g-l-f-w-init-mixin.html
-$dokka.location:gay.asoji.innerpastels.mixins/KeyboardHandlerMixin///PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins/-keyboard-handler-mixin/index.html
-$dokka.location:gay.asoji.innerpastels.mixins/KeyboardHandlerMixin/KeyboardHandlerMixin/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins/-keyboard-handler-mixin/-keyboard-handler-mixin.html
-$dokka.location:gay.asoji.innerpastels.mixins/MinecraftMixin///PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins/-minecraft-mixin/index.html
-$dokka.location:gay.asoji.innerpastels.mixins/MinecraftMixin/MinecraftMixin/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins/-minecraft-mixin/-minecraft-mixin.html
-$dokka.location:gay.asoji.innerpastels.mixins/MinecraftMixin/close/#org.spongepowered.asm.mixin.injection.callback.CallbackInfo/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins/-minecraft-mixin/close.html
-$dokka.location:gay.asoji.innerpastels.mixins/MouseHandlerMixin///PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins/-mouse-handler-mixin/index.html
-$dokka.location:gay.asoji.innerpastels.mixins/MouseHandlerMixin/MouseHandlerMixin/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins/-mouse-handler-mixin/-mouse-handler-mixin.html
-$dokka.location:gay.asoji.innerpastels.mixins/MouseHandlerMixin/cancelMouseX/#org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable<java.lang.Double>/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins/-mouse-handler-mixin/cancel-mouse-x.html
-$dokka.location:gay.asoji.innerpastels.mixins/MouseHandlerMixin/cancelMouseY/#org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable<java.lang.Double>/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins/-mouse-handler-mixin/cancel-mouse-y.html
-$dokka.location:gay.asoji.innerpastels.mixins/MouseHandlerMixin/grabMouse/#org.spongepowered.asm.mixin.injection.callback.CallbackInfo/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins/-mouse-handler-mixin/grab-mouse.html
-$dokka.location:gay.asoji.innerpastels.mixins/RenderSystemMixin///PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins/-render-system-mixin/index.html
-$dokka.location:gay.asoji.innerpastels.mixins/RenderSystemMixin/RenderSystemMixin/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins/-render-system-mixin/-render-system-mixin.html
+$dokka.location:gay.asoji.innerpastels.mixins.dearimgui////PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins.dearimgui/index.html
+$dokka.location:gay.asoji.innerpastels.mixins.dearimgui/GLFWInitMixin///PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins.dearimgui/-g-l-f-w-init-mixin/index.html
+$dokka.location:gay.asoji.innerpastels.mixins.dearimgui/GLFWInitMixin/GLFWInitMixin/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins.dearimgui/-g-l-f-w-init-mixin/-g-l-f-w-init-mixin.html
+$dokka.location:gay.asoji.innerpastels.mixins.dearimgui/KeyboardHandlerMixin///PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins.dearimgui/-keyboard-handler-mixin/index.html
+$dokka.location:gay.asoji.innerpastels.mixins.dearimgui/KeyboardHandlerMixin/KeyboardHandlerMixin/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins.dearimgui/-keyboard-handler-mixin/-keyboard-handler-mixin.html
+$dokka.location:gay.asoji.innerpastels.mixins.dearimgui/MinecraftMixin///PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins.dearimgui/-minecraft-mixin/index.html
+$dokka.location:gay.asoji.innerpastels.mixins.dearimgui/MinecraftMixin/MinecraftMixin/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins.dearimgui/-minecraft-mixin/-minecraft-mixin.html
+$dokka.location:gay.asoji.innerpastels.mixins.dearimgui/MinecraftMixin/close/#org.spongepowered.asm.mixin.injection.callback.CallbackInfo/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins.dearimgui/-minecraft-mixin/close.html
+$dokka.location:gay.asoji.innerpastels.mixins.dearimgui/MouseHandlerMixin///PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins.dearimgui/-mouse-handler-mixin/index.html
+$dokka.location:gay.asoji.innerpastels.mixins.dearimgui/MouseHandlerMixin/MouseHandlerMixin/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins.dearimgui/-mouse-handler-mixin/-mouse-handler-mixin.html
+$dokka.location:gay.asoji.innerpastels.mixins.dearimgui/MouseHandlerMixin/cancelMouseX/#org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable<java.lang.Double>/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins.dearimgui/-mouse-handler-mixin/cancel-mouse-x.html
+$dokka.location:gay.asoji.innerpastels.mixins.dearimgui/MouseHandlerMixin/cancelMouseY/#org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable<java.lang.Double>/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins.dearimgui/-mouse-handler-mixin/cancel-mouse-y.html
+$dokka.location:gay.asoji.innerpastels.mixins.dearimgui/MouseHandlerMixin/grabMouse/#org.spongepowered.asm.mixin.injection.callback.CallbackInfo/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins.dearimgui/-mouse-handler-mixin/grab-mouse.html
+$dokka.location:gay.asoji.innerpastels.mixins.dearimgui/RenderSystemMixin///PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins.dearimgui/-render-system-mixin/index.html
+$dokka.location:gay.asoji.innerpastels.mixins.dearimgui/RenderSystemMixin/RenderSystemMixin/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins.dearimgui/-render-system-mixin/-render-system-mixin.html
 $dokka.location:gay.asoji.innerpastels.register////PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.register/index.html
 $dokka.location:gay.asoji.innerpastels.register//registerBlock/net.minecraft.world.level.block.Block#kotlin.String#kotlin.String/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.register/register-block.html
 $dokka.location:gay.asoji.innerpastels.register//registerBlockItem/net.minecraft.world.level.block.Block#kotlin.String#kotlin.String/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.register/register-block-item.html
@@ -263,7 +263,7 @@ gay.asoji.innerpastels.datagen
 gay.asoji.innerpastels.events
 gay.asoji.innerpastels.items
 gay.asoji.innerpastels.misc
-gay.asoji.innerpastels.mixins
+gay.asoji.innerpastels.mixins.dearimgui
 gay.asoji.innerpastels.register
 gay.asoji.innerpastels.tags
 
