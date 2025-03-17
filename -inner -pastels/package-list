@@ -69,6 +69,12 @@ $dokka.location:gay.asoji.innerpastels.datagen/CustomModelTemplates/createCustom
 $dokka.location:gay.asoji.innerpastels.datagen/CustomModelTemplates/createCustomItemModel/#kotlin.String#kotlin.String#kotlin.String#net.minecraft.data.models.model.TextureSlot/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.datagen/-custom-model-templates/create-custom-item-model.html
 $dokka.location:gay.asoji.innerpastels.datagen/CustomModelTemplates/createCustomItemModel/#kotlin.String#kotlin.String#net.minecraft.data.models.model.TextureSlot/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.datagen/-custom-model-templates/create-custom-item-model.html
 $dokka.location:gay.asoji.innerpastels.datagen/CustomModelTemplates/createCustomItemModel/#kotlin.String#kotlin.String/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.datagen/-custom-model-templates/create-custom-item-model.html
+$dokka.location:gay.asoji.innerpastels.datagen/FabricEntityLootTableProvider///PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.datagen/-fabric-entity-loot-table-provider/index.html
+$dokka.location:gay.asoji.innerpastels.datagen/FabricEntityLootTableProvider/FabricEntityLootTableProvider/#net.fabricmc.fabric.api.datagen.v1.FabricDataOutput#java.util.concurrent.CompletableFuture[net.minecraft.core.HolderLookup.Provider]/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.datagen/-fabric-entity-loot-table-provider/-fabric-entity-loot-table-provider.html
+$dokka.location:gay.asoji.innerpastels.datagen/FabricEntityLootTableProvider/excludeFromStrictValidation/#net.minecraft.world.entity.EntityType[*]?/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.datagen/-fabric-entity-loot-table-provider/exclude-from-strict-validation.html
+$dokka.location:gay.asoji.innerpastels.datagen/FabricEntityLootTableProvider/generate/#java.util.function.BiConsumer[net.minecraft.resources.ResourceKey[net.minecraft.world.level.storage.loot.LootTable],net.minecraft.world.level.storage.loot.LootTable.Builder]/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.datagen/-fabric-entity-loot-table-provider/generate.html
+$dokka.location:gay.asoji.innerpastels.datagen/FabricEntityLootTableProvider/getName/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.datagen/-fabric-entity-loot-table-provider/get-name.html
+$dokka.location:gay.asoji.innerpastels.datagen/FabricEntityLootTableProvider/run/#net.minecraft.data.CachedOutput/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.datagen/-fabric-entity-loot-table-provider/run.html
 $dokka.location:gay.asoji.innerpastels.datagen/ModelGenerators///PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.datagen/-model-generators/index.html
 $dokka.location:gay.asoji.innerpastels.datagen/ModelGenerators/createFence/#net.minecraft.world.level.block.Block#net.minecraft.world.level.block.Block#net.minecraft.data.models.BlockModelGenerators/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.datagen/-model-generators/create-fence.html
 $dokka.location:gay.asoji.innerpastels.datagen/ModelGenerators/createFenceGate/#net.minecraft.world.level.block.Block#net.minecraft.world.level.block.Block#net.minecraft.data.models.BlockModelGenerators/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.datagen/-model-generators/create-fence-gate.html
@@ -143,6 +149,9 @@ $dokka.location:gay.asoji.innerpastels.mixins.dearimgui/MouseHandlerMixin/cancel
 $dokka.location:gay.asoji.innerpastels.mixins.dearimgui/MouseHandlerMixin/grabMouse/#org.spongepowered.asm.mixin.injection.callback.CallbackInfo/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins.dearimgui/-mouse-handler-mixin/grab-mouse.html
 $dokka.location:gay.asoji.innerpastels.mixins.dearimgui/RenderSystemMixin///PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins.dearimgui/-render-system-mixin/index.html
 $dokka.location:gay.asoji.innerpastels.mixins.dearimgui/RenderSystemMixin/RenderSystemMixin/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins.dearimgui/-render-system-mixin/-render-system-mixin.html
+$dokka.location:gay.asoji.innerpastels.mixins////PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins/index.html
+$dokka.location:gay.asoji.innerpastels.mixins/EntityLootSubProviderAccessor///PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins/-entity-loot-sub-provider-accessor/index.html
+$dokka.location:gay.asoji.innerpastels.mixins/EntityLootSubProviderAccessor/getMap/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.mixins/-entity-loot-sub-provider-accessor/get-map.html
 $dokka.location:gay.asoji.innerpastels.register////PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.register/index.html
 $dokka.location:gay.asoji.innerpastels.register//registerBlock/net.minecraft.world.level.block.Block#kotlin.String#kotlin.String/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.register/register-block.html
 $dokka.location:gay.asoji.innerpastels.register//registerBlockItem/net.minecraft.world.level.block.Block#kotlin.String#kotlin.String/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.register/register-block-item.html
@@ -263,6 +272,7 @@ gay.asoji.innerpastels.datagen
 gay.asoji.innerpastels.events
 gay.asoji.innerpastels.items
 gay.asoji.innerpastels.misc
+gay.asoji.innerpastels.mixins
 gay.asoji.innerpastels.mixins.dearimgui
 gay.asoji.innerpastels.register
 gay.asoji.innerpastels.tags
