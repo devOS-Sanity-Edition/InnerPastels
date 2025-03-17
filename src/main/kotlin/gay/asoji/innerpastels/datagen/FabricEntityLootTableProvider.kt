@@ -84,7 +84,7 @@ abstract class FabricEntityLootTableProvider(
 
             missing.removeAll(this.excludedFromStrictValidation)
 
-            check(missing.isEmpty()) { "Missing loot table(s) for %s".formatted(missing) }
+            check(missing.isEmpty()) { "Missing loot table(s) for ${missing}" }
         }
     }
 
