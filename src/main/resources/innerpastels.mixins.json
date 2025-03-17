@@ -7,11 +7,11 @@
   "mixins": [
   ],
   "client": [
-    "GLFWInitMixin",
-    "KeyboardHandlerMixin",
-    "MinecraftMixin",
-    "MouseHandlerMixin",
-    "RenderSystemMixin"
+    "dearimgui.GLFWInitMixin",
+    "dearimgui.KeyboardHandlerMixin",
+    "dearimgui.MinecraftMixin",
+    "dearimgui.MouseHandlerMixin",
+    "dearimgui.RenderSystemMixin"
   ],
   "injectors": {
     "defaultRequire": 1

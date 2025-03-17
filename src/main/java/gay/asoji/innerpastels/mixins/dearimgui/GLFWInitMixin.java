@@ -1,4 +1,4 @@
-package gay.asoji.innerpastels.mixins;
+package gay.asoji.innerpastels.mixins.dearimgui;
 
 import com.mojang.blaze3d.platform.DisplayData;
 import com.mojang.blaze3d.platform.ScreenManager;

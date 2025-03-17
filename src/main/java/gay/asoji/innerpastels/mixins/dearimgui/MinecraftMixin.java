@@ -1,4 +1,4 @@
-package gay.asoji.innerpastels.mixins;
+package gay.asoji.innerpastels.mixins.dearimgui;
 
 import com.moulberry.mixinconstraints.annotations.IfDevEnvironment;
 import gay.asoji.innerpastels.client.imgui.InnerPastelsImGuiImpl;

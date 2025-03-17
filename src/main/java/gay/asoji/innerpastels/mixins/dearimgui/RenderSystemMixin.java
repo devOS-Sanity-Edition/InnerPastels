@@ -1,6 +1,7 @@
-package gay.asoji.innerpastels.mixins;
+package gay.asoji.innerpastels.mixins.dearimgui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.moulberry.mixinconstraints.annotations.IfDevEnvironment;
 import gay.asoji.innerpastels.client.ImGuiClient;
 import gay.asoji.innerpastels.client.imgui.InnerPastelsImGuiImpl;
 import imgui.type.ImBoolean;
@@ -9,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@IfDevEnvironment
 @Mixin(RenderSystem.class)
 public class RenderSystemMixin {
     @Inject(method = "flipFrame", at = @At("HEAD"), remap = false)
