@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_21",
   "plugin": "com.moulberry.mixinconstraints.ConstraintsMixinPlugin",
   "mixins": [
+    "EntityLootSubProviderAccessor"
   ],
   "client": [
     "dearimgui.GLFWInitMixin",
