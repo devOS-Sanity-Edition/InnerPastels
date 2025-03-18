@@ -18,7 +18,12 @@ import java.util.function.Supplier;
 @Mixin(value = PlayerInfo.class, priority = 1100)
 public class PlayerInfoMixin {
     @Unique
-    private static final ResourceLocation DEV_CAPE = ResourceLocation.tryBuild(InnerPastels.MOD_ID, "textures/misc/cape.png");
+    private static final ResourceLocation INNER_CAPE = ResourceLocation.tryBuild(InnerPastels.MOD_ID, "textures/misc/inner.png");
+    @Unique
+    private static final ResourceLocation SOFTER_CAPE = ResourceLocation.tryBuild(InnerPastels.MOD_ID, "textures/misc/softer.png");
+    @Unique
+    private static final ResourceLocation DESOLATED_CAPE = ResourceLocation.tryBuild(InnerPastels.MOD_ID, "textures/misc/desolated.png");
+
     @Shadow
     @Final
     private GameProfile profile;
@@ -36,7 +41,7 @@ public class PlayerInfoMixin {
             var original = this.skinLookup;
             this.skinLookup = () -> {
                 var originalResult = original.get();
-                return new PlayerSkin(originalResult.texture(), originalResult.textureUrl(), DEV_CAPE, originalResult.elytraTexture(), originalResult.model(), originalResult.secure());
+                return new PlayerSkin(originalResult.texture(), originalResult.textureUrl(), SOFTER_CAPE, originalResult.elytraTexture(), originalResult.model(), originalResult.secure());
             };
         }
     }
@@ -45,7 +50,7 @@ public class PlayerInfoMixin {
     private void replaceSkinCapeIfNeeded(CallbackInfoReturnable<PlayerSkin> cir) {
         var skin = cir.getReturnValue();
 
-        if (Objects.equals(DEV_CAPE, skin.capeTexture()) && !CapeUtils.INSTANCE.useDevCape(profile.getId())) {
+        if (Objects.equals(SOFTER_CAPE, skin.capeTexture()) && !CapeUtils.INSTANCE.useDevCape(profile.getId())) {
             var playerSkin = new PlayerSkin(skin.texture(), skin.textureUrl(), null, skin.elytraTexture(), skin.model(), skin.secure());
 
             this.skinLookup = () -> playerSkin;
