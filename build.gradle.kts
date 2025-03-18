@@ -131,13 +131,6 @@ dependencies {
         api("io.github.spair:imgui-java-$module:$version") {
             exclude(group = "org.lwjgl")
         }
-
-        if (bundled) {
-            include("io.github.spair:imgui-java-$module:$version")
-        } else {
-            shade("io.github.spair:imgui-java-$module:$version")
-        }
-
     }
 
     include(modApi("gay.asoji:fmw:1.0.0+build.8")!!)
