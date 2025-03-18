@@ -8,6 +8,7 @@
     "EntityLootSubProviderAccessor"
   ],
   "client": [
+    "PlayerInfoMixin",
     "dearimgui.GLFWInitMixin",
     "dearimgui.KeyboardHandlerMixin",
     "dearimgui.MinecraftMixin",

@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger
  * @version 1.0.1
  */
 object InnerPastels : ModInitializer {
-    val MOD_ID = "innerpastels"
+    const val MOD_ID = "innerpastels"
     val otherPastelMods = mutableListOf<String>()
 
     fun registerMods(id: String) {
