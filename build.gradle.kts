@@ -118,7 +118,7 @@ dependencies {
     modImplementation(libs.fabric.api)
     modImplementation(libs.fabric.language.kotlin) // how did i not have this
     modImplementation(libs.sodium)
-    include(implementation("com.moulberry:mixinconstraints:1.0.1")!!)
+    include(implementation("com.moulberry:mixinconstraints:1.0.7")!!)
 
     listOf(
         "binding" to true,
