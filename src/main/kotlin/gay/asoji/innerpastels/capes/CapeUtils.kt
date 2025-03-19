@@ -82,6 +82,6 @@ enum class CapeUtils {
         DESOLATED;
         
         val location: ResourceLocation =
-            ResourceLocation.fromNamespaceAndPath(InnerPastels.MOD_ID, "textures/misc/${name}.png")
+            ResourceLocation.fromNamespaceAndPath(InnerPastels.MOD_ID, "textures/misc/${name.lowercase(Locale.ROOT)}.png")
     }
 }
