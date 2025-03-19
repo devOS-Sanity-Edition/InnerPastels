@@ -4,13 +4,28 @@ import com.google.common.collect.HashMultimap
 import com.google.common.collect.Multimap
 import com.google.gson.Gson
 import com.google.gson.JsonElement
+import com.mojang.brigadier.arguments.StringArgumentType
 import com.mojang.datafixers.util.Pair
 import com.mojang.serialization.Codec
 import com.mojang.serialization.JsonOps
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import gay.asoji.innerpastels.InnerPastels
 import gay.asoji.innerpastels.config.Config
+import gay.asoji.innerpastels.network.clientbound.ClientboundClearPlayerCapePacket
+import gay.asoji.innerpastels.network.clientbound.ClientboundSetPlayerCapePacket
+import gay.asoji.innerpastels.network.serverbound.ServerboundSetCapeStylePacket
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
+import net.minecraft.commands.SharedSuggestionProvider
+import net.minecraft.network.chat.Component
+import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.server.MinecraftServer
+import net.minecraft.util.ByIdMap
 import net.minecraft.util.StringRepresentable
 import java.net.URI
 import java.net.http.HttpClient
@@ -23,13 +38,102 @@ import kotlin.jvm.optionals.getOrDefault
 object CapeUtils {
     private const val URL = "https://raw.githubusercontent.com/asoji/CapeData/refs/heads/main/capes.json"
     private val registeredDevs: Multimap<UUID, CapeStyle> = HashMultimap.create()
+    val selectedCapeStyle = mutableMapOf<UUID, CapeStyle>()
 
-    private var initialized = false
-
-    fun init() {
-        if (initialized) return
-        initialized = true
+    init {
         refresh()
+
+        ServerPlayConnectionEvents.JOIN.register { handler, sender, server ->
+            selectedCapeStyle.forEach { (uuid, style) ->
+                if (!registeredDevs.containsEntry(uuid, style))
+                    return@forEach
+
+                ServerPlayNetworking.send(handler.player, ClientboundSetPlayerCapePacket(uuid, style))
+            }
+        }
+    }
+
+    fun initClient() {
+        ClientPlayConnectionEvents.JOIN.register { handler, sender, client ->
+            if (registeredDevs.containsEntry(handler.id, Config.get().capeStyle)) {
+                ClientPlayNetworking.send(ServerboundSetCapeStylePacket(Config.get().capeStyle!!))
+            }
+        }
+
+        ClientCommandRegistrationCallback.EVENT.register { dispatcher, ctx ->
+            dispatcher.register(
+                ClientCommandManager.literal("innerpastels")
+                    .then(
+                        ClientCommandManager.literal("devcape")
+                            .then(
+                                ClientCommandManager.literal("none")
+                                    .executes {
+                                        removeSelectedCape(it.source.player.uuid)
+                                        it.source.sendFeedback(Component.literal("Cleared your dev cape!"))
+                                        Config.get().capeStyle = null
+                                        Config.save()
+
+                                        1
+                                    }
+                            )
+                            .then(
+                                ClientCommandManager.argument("style", StringArgumentType.word())
+                                    .suggests { ctx, it ->
+                                        SharedSuggestionProvider.suggest(CapeStyle.entries.filter { s -> registeredDevs.containsEntry(ctx.source.player.id, s) }.map { s -> s.serializedName }, it)
+                                    }
+                                    .executes { ctx ->
+                                        val capeStyleText = StringArgumentType.getString(ctx, "style")
+                                        val capeStyle = CapeStyle.entries.firstOrNull { it.serializedName == capeStyleText }
+
+                                        if (capeStyle == null) {
+                                            ctx.source.sendError(Component.literal("Invalid cape style!"))
+                                            return@executes 0
+                                        }
+
+                                        if (!registeredDevs.containsEntry(ctx.source.player.id, capeStyle)) {
+                                            ctx.source.sendError(Component.literal("You do not have this cape!"))
+                                            return@executes 0
+                                        }
+
+                                        trySetSelectedCape(ctx.source.player.uuid, capeStyle)
+                                        ctx.source.sendFeedback(Component.literal("Set your dev cape to $capeStyle!"))
+
+                                        Config.get().capeStyle = capeStyle
+                                        Config.save()
+
+                                        1
+                                    }
+                            )
+                    )
+            )
+        }
+    }
+
+    fun trySetSelectedCape(uuid: UUID, style: CapeStyle, server: MinecraftServer? = null) {
+        if (registeredDevs.containsEntry(uuid, style)) {
+            selectedCapeStyle[uuid] = style
+
+            if (server != null) {
+                server.playerList.players.forEach { player ->
+                    ServerPlayNetworking.send(player, ClientboundSetPlayerCapePacket(uuid, style))
+                }
+            } else {
+                sendCapeStyleToServer(style)
+            }
+        }
+    }
+
+    fun removeSelectedCape(uuid: UUID, server: MinecraftServer? = null) {
+        selectedCapeStyle.remove(uuid)
+
+        server?.playerList?.players?.forEach { player ->
+            ServerPlayNetworking.send(player, ClientboundClearPlayerCapePacket(uuid))
+        }
+    }
+
+    // Separated into a different function because otherwise KnotClassLoader panics
+    private fun sendCapeStyleToServer(style: CapeStyle) {
+        ClientPlayNetworking.send(ServerboundSetCapeStylePacket(style))
     }
 
     private fun refresh() {
@@ -58,13 +162,7 @@ object CapeUtils {
 
     fun getDevCape(id: UUID): CapeStyle? {
         if (registeredDevs.containsKey(id)) {
-            val capes = registeredDevs.get(id)
-            capes.forEach { s ->
-                if (Config.get().capeStyle == s)
-                    return s
-            }
-            
-            return capes.first()
+            return selectedCapeStyle[id] ?: registeredDevs[id].first()
         }
 
         return null
@@ -96,6 +194,7 @@ object CapeUtils {
         
         companion object {
             val CODEC: Codec<CapeStyle> = StringRepresentable.fromEnum(CapeStyle::values)
+            val STREAM_CODEC = ByteBufCodecs.idMapper(ByIdMap.continuous(CapeStyle::ordinal, entries.toTypedArray(), ByIdMap.OutOfBoundsStrategy.CLAMP), CapeStyle::ordinal)
         }
         
         val location: ResourceLocation =

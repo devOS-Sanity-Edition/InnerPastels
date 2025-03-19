@@ -10,7 +10,7 @@ class InnerPastelsClient : ClientModInitializer {
             ImGuiClient.init()
         }
 
-        CapeUtils.init()
+        CapeUtils.initClient()
     }
 
 

@@ -28,7 +28,7 @@ object Config {
         if (config.capeStyle != null)
             save()
     }
-    
+
     fun get(): ConfigData {
         return config
     }
@@ -41,7 +41,7 @@ object Config {
     }
     
     data class ConfigData(
-        val capeStyle: CapeUtils.CapeStyle?
+        var capeStyle: CapeUtils.CapeStyle?
     ) {
         constructor(capeStyle: Optional<CapeUtils.CapeStyle>) : this(capeStyle.orElse(null))
 
