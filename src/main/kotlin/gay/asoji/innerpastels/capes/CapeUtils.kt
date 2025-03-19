@@ -68,7 +68,7 @@ object CapeUtils {
                             .then(
                                 ClientCommandManager.argument("style", StringArgumentType.word())
                                     .suggests { ctx, it ->
-                                        SharedSuggestionProvider.suggest(CapeStyle.entries.filter { s -> registeredDevs.containsEntry(ctx.source.player.id, s) }.map { s -> s.serializedName }.toMutableList()
+                                        SharedSuggestionProvider.suggest(CapeStyle.entries.filter { s -> registeredDevs.containsEntry(ctx.source.player.uuid, s) }.map { s -> s.serializedName }.toMutableList()
                                             .apply {
                                                 this.add("none")
                                             }, it)
@@ -90,7 +90,7 @@ object CapeUtils {
                                             return@executes 0
                                         }
 
-                                        if (!registeredDevs.containsEntry(ctx.source.player.id, capeStyle)) {
+                                        if (!registeredDevs.containsEntry(ctx.source.player.uuid, capeStyle)) {
                                             ctx.source.sendError(Component.literal("You do not have this cape!"))
                                             return@executes 0
                                         }
