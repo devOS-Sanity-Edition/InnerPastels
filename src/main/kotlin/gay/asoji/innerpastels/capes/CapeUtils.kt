@@ -66,23 +66,23 @@ object CapeUtils {
                     .then(
                         ClientCommandManager.literal("devcape")
                             .then(
-                                ClientCommandManager.literal("none")
-                                    .executes {
-                                        removeSelectedCape(it.source.player.uuid)
-                                        it.source.sendFeedback(Component.literal("Cleared your dev cape!"))
-                                        Config.get().capeStyle = null
-                                        Config.save()
-
-                                        1
-                                    }
-                            )
-                            .then(
                                 ClientCommandManager.argument("style", StringArgumentType.word())
                                     .suggests { ctx, it ->
-                                        SharedSuggestionProvider.suggest(CapeStyle.entries.filter { s -> registeredDevs.containsEntry(ctx.source.player.id, s) }.map { s -> s.serializedName }, it)
+                                        SharedSuggestionProvider.suggest(CapeStyle.entries.filter { s -> registeredDevs.containsEntry(ctx.source.player.id, s) }.map { s -> s.serializedName }.toMutableList()
+                                            .apply {
+                                                this.add("none")
+                                            }, it)
                                     }
                                     .executes { ctx ->
                                         val capeStyleText = StringArgumentType.getString(ctx, "style")
+
+                                        if (capeStyleText == "none") {
+                                            removeSelectedCape(ctx.source.player.uuid)
+                                            ctx.source.sendFeedback(Component.literal("Cleared your dev cape!"))
+                                            Config.get().capeStyle = null
+                                            Config.save()
+                                        }
+
                                         val capeStyle = CapeStyle.entries.firstOrNull { it.serializedName == capeStyleText }
 
                                         if (capeStyle == null) {
@@ -154,6 +154,8 @@ object CapeUtils {
                         registeredDevs.put(UUID.fromString(u.uuid), c)
                     }
                 }
+
+                InnerPastels.LOGGER.info("Loaded dev cape data.")
             } catch (e: Exception) {
                 InnerPastels.LOGGER.error("Failed to fetch cape data", e)
             }
