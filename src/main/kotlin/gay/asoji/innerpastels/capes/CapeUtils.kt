@@ -1,67 +1,189 @@
 package gay.asoji.innerpastels.capes
 
-import com.google.gson.JsonObject
-import com.google.gson.JsonParser
+import com.google.common.collect.HashMultimap
+import com.google.common.collect.Multimap
+import com.google.gson.Gson
+import com.google.gson.JsonElement
+import com.mojang.brigadier.arguments.StringArgumentType
+import com.mojang.datafixers.util.Pair
+import com.mojang.serialization.Codec
+import com.mojang.serialization.JsonOps
+import com.mojang.serialization.codecs.RecordCodecBuilder
 import gay.asoji.innerpastels.InnerPastels
-import net.minecraft.world.entity.player.Player
+import gay.asoji.innerpastels.config.Config
+import gay.asoji.innerpastels.network.clientbound.ClientboundSetPlayerCapePacket
+import gay.asoji.innerpastels.network.serverbound.ServerboundSetCapeStylePacket
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
+import net.minecraft.commands.SharedSuggestionProvider
+import net.minecraft.network.chat.Component
+import net.minecraft.network.codec.ByteBufCodecs
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.server.MinecraftServer
+import net.minecraft.util.ByIdMap
+import net.minecraft.util.StringRepresentable
 import java.net.URI
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
 import java.util.*
 import java.util.concurrent.CompletableFuture
+import kotlin.jvm.optionals.getOrDefault
 
-enum class CapeUtils {
-    INSTANCE;
+object CapeUtils {
+    private const val URL = "https://raw.githubusercontent.com/asoji/CapeData/refs/heads/main/capes.json"
+    private val registeredDevs: Multimap<UUID, CapeStyle> = HashMultimap.create()
+    val selectedCapeStyle = mutableMapOf<UUID, CapeStyle>()
 
-    private val registeredDevs: MutableSet<UUID> = HashSet()
-
-    private var initialized = false
-
-    fun init() {
-        if (initialized) return
-        initialized = true
+    init {
         refresh()
+
+        ServerPlayConnectionEvents.JOIN.register { handler, sender, server ->
+            selectedCapeStyle.forEach { (uuid, style) ->
+                if (!registeredDevs.containsEntry(uuid, style))
+                    return@forEach
+
+                ServerPlayNetworking.send(handler.player, ClientboundSetPlayerCapePacket(uuid, style))
+            }
+        }
+    }
+
+    fun initClient() {
+        ClientPlayConnectionEvents.JOIN.register { handler, sender, client ->
+            if (registeredDevs.containsEntry(handler.id, Config.get().capeStyle)) {
+                ClientPlayNetworking.send(ServerboundSetCapeStylePacket(Config.get().capeStyle!!))
+            }
+        }
+
+        ClientCommandRegistrationCallback.EVENT.register { dispatcher, ctx ->
+            dispatcher.register(
+                ClientCommandManager.literal("innerpastels")
+                    .then(
+                        ClientCommandManager.literal("devcape")
+                            .then(
+                                ClientCommandManager.argument("style", StringArgumentType.word())
+                                    .suggests { ctx, it ->
+                                        SharedSuggestionProvider.suggest(CapeStyle.entries.filter { s -> registeredDevs.containsEntry(ctx.source.player.uuid, s) }.map { s -> s.serializedName }, it)
+                                    }
+                                    .executes { ctx ->
+                                        val capeStyleText = StringArgumentType.getString(ctx, "style")
+                                        val capeStyle = CapeStyle.entries.firstOrNull { it.serializedName == capeStyleText }
+
+                                        if (capeStyle == null) {
+                                            ctx.source.sendError(Component.literal("Invalid cape style!"))
+                                            return@executes 0
+                                        }
+
+                                        if (!registeredDevs.containsEntry(ctx.source.player.uuid, capeStyle)) {
+                                            ctx.source.sendError(Component.literal("You do not have this cape!"))
+                                            return@executes 0
+                                        }
+
+                                        trySetSelectedCape(ctx.source.player.uuid, capeStyle)
+                                        ctx.source.sendFeedback(Component.literal("Set your dev cape to $capeStyle!"))
+
+                                        Config.get().capeStyle = capeStyle
+                                        Config.save()
+
+                                        1
+                                    }
+                            )
+                    )
+            )
+        }
+    }
+
+    fun trySetSelectedCape(uuid: UUID, style: CapeStyle, server: MinecraftServer? = null) {
+        if (registeredDevs.containsEntry(uuid, style)) {
+            selectedCapeStyle[uuid] = style
+
+            if (server != null) {
+                server.playerList.players.forEach { player ->
+                    ServerPlayNetworking.send(player, ClientboundSetPlayerCapePacket(uuid, style))
+                }
+            } else {
+                sendCapeStyleToServer(style)
+            }
+        }
+    }
+
+    // Separated into a different function because otherwise KnotClassLoader panics
+    private fun sendCapeStyleToServer(style: CapeStyle) {
+        ClientPlayNetworking.send(ServerboundSetCapeStylePacket(style))
     }
 
     private fun refresh() {
         CompletableFuture.runAsync {
             val client = HttpClient.newHttpClient()
-            val request = HttpRequest.newBuilder(URI.create(url))
+            val request = HttpRequest.newBuilder(URI.create(URL))
                 .GET()
                 .build()
             try {
                 val body = client.send(request, HttpResponse.BodyHandlers.ofString()).body()
-                val devArray = JsonParser.parseString(body).asJsonObject.getAsJsonArray("dev")
-                val fetched: MutableSet<UUID> = HashSet()
-                for (element in devArray) {
-                    if (element is JsonObject) {
-                        if (element.has("id")) {
-                            fetched.add(UUID.fromString(element["id"].asString))
-                        }
+                val users = User.LIST_CODEC.decode(JsonOps.INSTANCE, Gson().fromJson(body, JsonElement::class.java))
+                    .resultOrPartial { InnerPastels.LOGGER.error(it) }
+                    .getOrDefault(Pair(emptyList(), null)).first
+
+                registeredDevs.clear()
+                users.forEach { u ->
+                    u.capes.forEach { c ->
+                        registeredDevs.put(UUID.fromString(u.uuid), c)
                     }
                 }
-                registeredDevs.clear()
-                registeredDevs.addAll(fetched)
+
+                InnerPastels.LOGGER.info("Loaded dev cape data.")
             } catch (e: Exception) {
                 InnerPastels.LOGGER.error("Failed to fetch cape data", e)
             }
         }
     }
 
-    fun isDev(player: Player): Boolean {
-        return isDev(player.uuid)
+    fun getDevCape(id: UUID): CapeStyle? {
+        if (registeredDevs.containsKey(id)) {
+            return selectedCapeStyle[id] ?: registeredDevs[id].first()
+        }
+
+        return null
     }
 
-    fun isDev(id: UUID): Boolean {
-        return registeredDevs.contains(id)
-    }
+    data class User(
+        val username: String,
+        val uuid: String,
+        val reason: String,
+        val capes: List<CapeStyle>
+    ) {
+        companion object {
+            private val CODEC: Codec<User> = RecordCodecBuilder.create { it.group(
+                    Codec.STRING.fieldOf("username").forGetter(User::username),
+                    Codec.STRING.fieldOf("uuid").forGetter(User::uuid),
+                    Codec.STRING.fieldOf("reason").forGetter(User::reason),
+                    CapeStyle.CODEC.listOf().fieldOf("capes").forGetter { i -> i.capes.toList() },
+                ).apply(it, ::User)
+            }
 
-    fun useDevCape(id: UUID): Boolean {
-        return isDev(id)
+            val LIST_CODEC: Codec<List<User>> = CODEC.listOf()
+        }
     }
+    
+    enum class CapeStyle : StringRepresentable {
+        INNER,
+        SOFTER,
+        DESOLATED;
+        
+        companion object {
+            val CODEC: Codec<CapeStyle> = StringRepresentable.fromEnum(CapeStyle::values)
+            val STREAM_CODEC = ByteBufCodecs.idMapper(ByIdMap.continuous(CapeStyle::ordinal, entries.toTypedArray(), ByIdMap.OutOfBoundsStrategy.CLAMP), CapeStyle::ordinal)
+        }
+        
+        val location: ResourceLocation =
+            ResourceLocation.fromNamespaceAndPath(InnerPastels.MOD_ID, "textures/misc/${serializedName}.png")
 
-    companion object {
-        private const val url = "https://raw.githubusercontent.com/asoji/CapeData/refs/heads/main/SofterPastels.json"
+        override fun getSerializedName(): String {
+            return name.lowercase(Locale.ROOT)
+        }
     }
 }

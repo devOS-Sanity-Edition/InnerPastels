@@ -1,6 +1,7 @@
 package gay.asoji.innerpastels
 
 import gay.asoji.fmw.FMW
+import gay.asoji.innerpastels.network.InnerPastelsNetworking
 import net.fabricmc.api.ModInitializer
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -22,6 +23,6 @@ object InnerPastels : ModInitializer {
 
     val LOGGER: Logger = LogManager.getLogger(FMW.getName(MOD_ID))
     override fun onInitialize() {
-
+        InnerPastelsNetworking.init()
     }
 }
