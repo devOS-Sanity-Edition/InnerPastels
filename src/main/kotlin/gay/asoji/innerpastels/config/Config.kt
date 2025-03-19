@@ -37,7 +37,7 @@ object Config {
         if (!configFile.exists())
             configFile.createFile()
 
-        configFile.writeText(ConfigData.CODEC.encodeStart(JsonOps.INSTANCE, config).resultOrPartial { InnerPastels.LOGGER.error(it) }.orElseThrow().asString)
+        configFile.writeText(ConfigData.CODEC.encodeStart(JsonOps.INSTANCE, config).resultOrPartial { InnerPastels.LOGGER.error(it) }.orElseThrow().toString())
     }
     
     data class ConfigData(
