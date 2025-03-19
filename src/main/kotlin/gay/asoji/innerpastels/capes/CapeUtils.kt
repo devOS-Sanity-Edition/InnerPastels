@@ -81,7 +81,7 @@ enum class CapeUtils {
         val capes: List<CapeStyle>
     ) {
         companion object {
-            val CODEC: Codec<User> = RecordCodecBuilder.create { instance ->
+            private val CODEC: Codec<User> = RecordCodecBuilder.create { instance ->
                 instance.group(
                     Codec.STRING.fieldOf("username").forGetter { i -> i.username },
                     Codec.STRING.fieldOf("uuid").forGetter { i -> i.uuid },
@@ -90,7 +90,7 @@ enum class CapeUtils {
                 ).apply(instance) { username, uuid, reason, capes -> User(username, uuid, reason, capes) }
             }
 
-            val LIST_CODEC = CODEC.listOf()
+            val LIST_CODEC: Codec<List<User>> = CODEC.listOf()
         }
     }
     
