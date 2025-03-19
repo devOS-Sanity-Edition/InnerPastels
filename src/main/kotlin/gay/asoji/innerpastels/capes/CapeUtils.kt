@@ -164,7 +164,7 @@ object CapeUtils {
 
     fun getDevCape(id: UUID): CapeStyle? {
         if (registeredDevs.containsKey(id)) {
-            return selectedCapeStyle[id] ?: registeredDevs[id].first()
+            return selectedCapeStyle[id]
         }
 
         return null

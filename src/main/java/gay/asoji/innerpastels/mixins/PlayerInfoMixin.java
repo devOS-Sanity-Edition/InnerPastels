@@ -1,18 +1,16 @@
 package gay.asoji.innerpastels.mixins;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.mojang.authlib.GameProfile;
-import gay.asoji.innerpastels.InnerPastels;
 import gay.asoji.innerpastels.capes.CapeUtils;
 import gay.asoji.innerpastels.capes.CapeUtils.CapeStyle;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.resources.PlayerSkin;
-import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -42,17 +40,26 @@ public class PlayerInfoMixin {
         }
     }
 
-    @Inject(method = "getSkin", at = @At("RETURN"), cancellable = true)
-    private void replaceSkinCapeIfNeeded(CallbackInfoReturnable<PlayerSkin> cir) {
-        var skin = cir.getReturnValue();
+    @ModifyReturnValue(method = "getSkin", at = @At("RETURN"))
+    private PlayerSkin replaceSkinCapeIfNeeded(PlayerSkin skin) {
+        var devCape = CapeUtils.INSTANCE.getDevCape(profile.getId());
 
         for (@NotNull CapeStyle value : CapeStyle.getEntries()) {
-            if (Objects.equals(value.getLocation(), skin.capeTexture()) && CapeUtils.INSTANCE.getDevCape(profile.getId()) == null) {
-                var playerSkin = new PlayerSkin(skin.texture(), skin.textureUrl(), null, skin.elytraTexture(), skin.model(), skin.secure());
+            if (Objects.equals(value.getLocation(), skin.capeTexture())) {
+                if (devCape == null) {
+                    var playerSkin = new PlayerSkin(skin.texture(), skin.textureUrl(), null, skin.elytraTexture(), skin.model(), skin.secure());
 
-                this.skinLookup = () -> playerSkin;
-                cir.setReturnValue(playerSkin);
+                    this.skinLookup = () -> playerSkin;
+                    return playerSkin;
+                } else if (!Objects.equals(skin.capeTexture(), devCape.getLocation())) {
+                    var playerSkin = new PlayerSkin(skin.texture(), skin.textureUrl(), devCape.getLocation(), skin.elytraTexture(), skin.model(), skin.secure());
+
+                    this.skinLookup = () -> playerSkin;
+                    return playerSkin;
+                }
             }
         }
+
+        return skin;
     }
 }
