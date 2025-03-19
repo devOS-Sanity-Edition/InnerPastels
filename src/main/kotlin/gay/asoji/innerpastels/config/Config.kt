@@ -1,11 +1,14 @@
 package gay.asoji.innerpastels.config
 
+import com.google.gson.Gson
+import com.google.gson.JsonElement
+import com.mojang.datafixers.util.Pair
+import com.mojang.serialization.Codec
+import com.mojang.serialization.JsonOps
+import com.mojang.serialization.codecs.RecordCodecBuilder
 import gay.asoji.innerpastels.capes.CapeUtils
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
 import net.fabricmc.loader.api.FabricLoader
 import java.nio.file.Path
-import kotlin.io.path.exists
 import kotlin.io.path.readText
 import kotlin.io.path.writeText
 
@@ -13,10 +16,10 @@ enum class Config {
     INSTANCE;
     
     private val configFile: Path = FabricLoader.getInstance().configDir.resolve("inner_pastels.json")
-    private val config: ConfigData = if (configFile.exists()) Json.decodeFromString(configFile.readText()) else ConfigData(null);
+    private val config: ConfigData = ConfigData.CODEC.decode(JsonOps.INSTANCE, Gson().fromJson(configFile.readText(), JsonElement::class.java)).result().orElse(Pair(ConfigData(null), null)).first;
 
     init {
-        if (config.cape_style != null)
+        if (config.capeStyle != null)
             save()
     }
     
@@ -25,11 +28,18 @@ enum class Config {
     }
     
     fun save() {
-        configFile.writeText(Json.encodeToString(config))
+        configFile.writeText(ConfigData.CODEC.encodeStart(JsonOps.INSTANCE, config).result().orElseThrow().asString)
     }
     
-    @Serializable
     data class ConfigData(
-        @Suppress("PropertyName") val cape_style: CapeUtils.CapeStyle?
-    )
+        val capeStyle: CapeUtils.CapeStyle?
+    ) {
+        companion object {
+            val CODEC: Codec<ConfigData> = RecordCodecBuilder.create { instance ->
+                instance.group(
+                    CapeUtils.CapeStyle.CODEC.fieldOf("cape_style").forGetter { i -> i.capeStyle }
+                ).apply(instance) { style -> ConfigData(style) }
+            }
+        }
+    }
 }
