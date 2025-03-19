@@ -35,10 +35,9 @@ enum class Config {
         val capeStyle: CapeUtils.CapeStyle?
     ) {
         companion object {
-            val CODEC: Codec<ConfigData> = RecordCodecBuilder.create { instance ->
-                instance.group(
-                    CapeUtils.CapeStyle.CODEC.fieldOf("cape_style").forGetter { i -> i.capeStyle }
-                ).apply(instance) { style -> ConfigData(style) }
+            val CODEC: Codec<ConfigData> = RecordCodecBuilder.create { it.group(
+                    CapeUtils.CapeStyle.CODEC.fieldOf("cape_style").forGetter(ConfigData::capeStyle)
+                ).apply(it, ::ConfigData)
             }
         }
     }
