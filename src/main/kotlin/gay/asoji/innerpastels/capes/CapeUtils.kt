@@ -41,7 +41,8 @@ enum class CapeUtils {
                 .build()
             try {
                 val body = client.send(request, HttpResponse.BodyHandlers.ofString()).body()
-                val users = User.LIST_CODEC.decode(JsonOps.INSTANCE, Gson().fromJson(body, JsonElement::class.java)).result()
+                val users = User.LIST_CODEC.decode(JsonOps.INSTANCE, Gson().fromJson(body, JsonElement::class.java))
+                    .resultOrPartial { InnerPastels.LOGGER.error(it) }
                     .getOrDefault(Pair(emptyList(), null)).first
 
                 registeredDevs.clear()

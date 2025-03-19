@@ -6,6 +6,7 @@ import com.mojang.datafixers.util.Pair
 import com.mojang.serialization.Codec
 import com.mojang.serialization.JsonOps
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import gay.asoji.innerpastels.InnerPastels
 import gay.asoji.innerpastels.capes.CapeUtils
 import net.fabricmc.loader.api.FabricLoader
 import java.nio.file.Path
@@ -16,7 +17,9 @@ enum class Config {
     INSTANCE;
     
     private val configFile: Path = FabricLoader.getInstance().configDir.resolve("inner_pastels.json")
-    private val config: ConfigData = ConfigData.CODEC.decode(JsonOps.INSTANCE, Gson().fromJson(configFile.readText(), JsonElement::class.java)).result().orElse(Pair(ConfigData(null), null)).first;
+    private val config: ConfigData = ConfigData.CODEC.decode(JsonOps.INSTANCE, Gson().fromJson(configFile.readText(), JsonElement::class.java))
+        .resultOrPartial { InnerPastels.LOGGER.error(it) }
+        .orElse(Pair(ConfigData(null), null)).first;
 
     init {
         if (config.capeStyle != null)
@@ -28,7 +31,7 @@ enum class Config {
     }
     
     fun save() {
-        configFile.writeText(ConfigData.CODEC.encodeStart(JsonOps.INSTANCE, config).result().orElseThrow().asString)
+        configFile.writeText(ConfigData.CODEC.encodeStart(JsonOps.INSTANCE, config).resultOrPartial { InnerPastels.LOGGER.error(it) }.orElseThrow().asString)
     }
     
     data class ConfigData(
