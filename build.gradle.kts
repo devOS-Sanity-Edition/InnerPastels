@@ -15,6 +15,7 @@ buildscript {
 
 plugins {
     kotlin("jvm") version "2.1.10"
+    kotlin("plugin.serialization") version "2.1.0"
     `maven-publish`
     java
 
@@ -134,6 +135,8 @@ dependencies {
     }
 
     include(modApi("gay.asoji:fmw:1.0.0+build.8")!!)
+    
+    include(implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")!!)
 }
 
 tasks.withType<DokkaTask>().configureEach {
