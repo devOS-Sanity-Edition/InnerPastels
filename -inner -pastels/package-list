@@ -39,8 +39,6 @@ $dokka.location:gay.asoji.innerpastels.capes/CapeUtils.CapeStyle/getSerializedNa
 $dokka.location:gay.asoji.innerpastels.capes/CapeUtils.CapeStyle/location/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.capes/-cape-utils/-cape-style/location.html
 $dokka.location:gay.asoji.innerpastels.capes/CapeUtils.CapeStyle/valueOf/#kotlin.String/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.capes/-cape-utils/-cape-style/value-of.html
 $dokka.location:gay.asoji.innerpastels.capes/CapeUtils.CapeStyle/values/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.capes/-cape-utils/-cape-style/values.html
-$dokka.location:gay.asoji.innerpastels.capes/CapeUtils.Companion///PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.capes/-cape-utils/-companion/index.html
-$dokka.location:gay.asoji.innerpastels.capes/CapeUtils.INSTANCE///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-inner -pastels/gay.asoji.innerpastels.capes/-cape-utils/-i-n-s-t-a-n-c-e/index.html
 $dokka.location:gay.asoji.innerpastels.capes/CapeUtils.User.Companion///PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.capes/-cape-utils/-user/-companion/index.html
 $dokka.location:gay.asoji.innerpastels.capes/CapeUtils.User.Companion/LIST_CODEC/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.capes/-cape-utils/-user/-companion/-l-i-s-t_-c-o-d-e-c.html
 $dokka.location:gay.asoji.innerpastels.capes/CapeUtils.User///PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.capes/-cape-utils/-user/index.html
@@ -50,11 +48,8 @@ $dokka.location:gay.asoji.innerpastels.capes/CapeUtils.User/reason/#/PointingToD
 $dokka.location:gay.asoji.innerpastels.capes/CapeUtils.User/username/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.capes/-cape-utils/-user/username.html
 $dokka.location:gay.asoji.innerpastels.capes/CapeUtils.User/uuid/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.capes/-cape-utils/-user/uuid.html
 $dokka.location:gay.asoji.innerpastels.capes/CapeUtils///PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.capes/-cape-utils/index.html
-$dokka.location:gay.asoji.innerpastels.capes/CapeUtils/entries/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.capes/-cape-utils/entries.html
 $dokka.location:gay.asoji.innerpastels.capes/CapeUtils/getDevCape/#java.util.UUID/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.capes/-cape-utils/get-dev-cape.html
 $dokka.location:gay.asoji.innerpastels.capes/CapeUtils/init/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.capes/-cape-utils/init.html
-$dokka.location:gay.asoji.innerpastels.capes/CapeUtils/valueOf/#kotlin.String/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.capes/-cape-utils/value-of.html
-$dokka.location:gay.asoji.innerpastels.capes/CapeUtils/values/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.capes/-cape-utils/values.html
 $dokka.location:gay.asoji.innerpastels.client.imgui////PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.client.imgui/index.html
 $dokka.location:gay.asoji.innerpastels.client.imgui/ImGuiPanel///PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.client.imgui/-im-gui-panel/index.html
 $dokka.location:gay.asoji.innerpastels.client.imgui/ImGuiPanel/render/#imgui.type.ImBoolean/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.client.imgui/-im-gui-panel/render.html
@@ -91,14 +86,11 @@ $dokka.location:gay.asoji.innerpastels.config/Config.ConfigData.Companion///Poin
 $dokka.location:gay.asoji.innerpastels.config/Config.ConfigData.Companion/CODEC/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.config/-config/-config-data/-companion/-c-o-d-e-c.html
 $dokka.location:gay.asoji.innerpastels.config/Config.ConfigData///PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.config/-config/-config-data/index.html
 $dokka.location:gay.asoji.innerpastels.config/Config.ConfigData/ConfigData/#gay.asoji.innerpastels.capes.CapeUtils.CapeStyle?/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.config/-config/-config-data/-config-data.html
+$dokka.location:gay.asoji.innerpastels.config/Config.ConfigData/ConfigData/#java.util.Optional[gay.asoji.innerpastels.capes.CapeUtils.CapeStyle]/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.config/-config/-config-data/-config-data.html
 $dokka.location:gay.asoji.innerpastels.config/Config.ConfigData/capeStyle/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.config/-config/-config-data/cape-style.html
-$dokka.location:gay.asoji.innerpastels.config/Config.INSTANCE///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-inner -pastels/gay.asoji.innerpastels.config/-config/-i-n-s-t-a-n-c-e/index.html
 $dokka.location:gay.asoji.innerpastels.config/Config///PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.config/-config/index.html
-$dokka.location:gay.asoji.innerpastels.config/Config/entries/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.config/-config/entries.html
 $dokka.location:gay.asoji.innerpastels.config/Config/get/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.config/-config/get.html
 $dokka.location:gay.asoji.innerpastels.config/Config/save/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.config/-config/save.html
-$dokka.location:gay.asoji.innerpastels.config/Config/valueOf/#kotlin.String/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.config/-config/value-of.html
-$dokka.location:gay.asoji.innerpastels.config/Config/values/#/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.config/-config/values.html
 $dokka.location:gay.asoji.innerpastels.crab////PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.crab/index.html
 $dokka.location:gay.asoji.innerpastels.crab/CrabInTheCode///PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.crab/-crab-in-the-code/index.html
 $dokka.location:gay.asoji.innerpastels.crab/CrabInTheCode/crabDeezNuts/#kotlin.String/PointingToDeclaration/-inner -pastels/gay.asoji.innerpastels.crab/-crab-in-the-code/crab-deez-nuts.html
