@@ -11,7 +11,6 @@ import com.mojang.serialization.JsonOps
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import gay.asoji.innerpastels.InnerPastels
 import gay.asoji.innerpastels.config.Config
-import gay.asoji.innerpastels.network.clientbound.ClientboundClearPlayerCapePacket
 import gay.asoji.innerpastels.network.clientbound.ClientboundSetPlayerCapePacket
 import gay.asoji.innerpastels.network.serverbound.ServerboundSetCapeStylePacket
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager
@@ -68,21 +67,10 @@ object CapeUtils {
                             .then(
                                 ClientCommandManager.argument("style", StringArgumentType.word())
                                     .suggests { ctx, it ->
-                                        SharedSuggestionProvider.suggest(CapeStyle.entries.filter { s -> registeredDevs.containsEntry(ctx.source.player.uuid, s) }.map { s -> s.serializedName }.toMutableList()
-                                            .apply {
-                                                this.add("none")
-                                            }, it)
+                                        SharedSuggestionProvider.suggest(CapeStyle.entries.filter { s -> registeredDevs.containsEntry(ctx.source.player.uuid, s) }.map { s -> s.serializedName }, it)
                                     }
                                     .executes { ctx ->
                                         val capeStyleText = StringArgumentType.getString(ctx, "style")
-
-                                        if (capeStyleText == "none") {
-                                            removeSelectedCape(ctx.source.player.uuid)
-                                            ctx.source.sendFeedback(Component.literal("Cleared your dev cape!"))
-                                            Config.get().capeStyle = null
-                                            Config.save()
-                                        }
-
                                         val capeStyle = CapeStyle.entries.firstOrNull { it.serializedName == capeStyleText }
 
                                         if (capeStyle == null) {
@@ -123,14 +111,6 @@ object CapeUtils {
         }
     }
 
-    fun removeSelectedCape(uuid: UUID, server: MinecraftServer? = null) {
-        selectedCapeStyle.remove(uuid)
-
-        server?.playerList?.players?.forEach { player ->
-            ServerPlayNetworking.send(player, ClientboundClearPlayerCapePacket(uuid))
-        }
-    }
-
     // Separated into a different function because otherwise KnotClassLoader panics
     private fun sendCapeStyleToServer(style: CapeStyle) {
         ClientPlayNetworking.send(ServerboundSetCapeStylePacket(style))
@@ -164,7 +144,7 @@ object CapeUtils {
 
     fun getDevCape(id: UUID): CapeStyle? {
         if (registeredDevs.containsKey(id)) {
-            return selectedCapeStyle[id]
+            return selectedCapeStyle[id] ?: registeredDevs[id].first()
         }
 
         return null
