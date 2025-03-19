@@ -44,6 +44,13 @@ public class PlayerInfoMixin {
     private PlayerSkin replaceSkinCapeIfNeeded(PlayerSkin skin) {
         var devCape = CapeUtils.INSTANCE.getDevCape(profile.getId());
 
+        if (devCape != null && skin.capeTexture() == null) {
+            var playerSkin = new PlayerSkin(skin.texture(), skin.textureUrl(), devCape.getLocation(), skin.elytraTexture(), skin.model(), skin.secure());
+
+            this.skinLookup = () -> playerSkin;
+            return playerSkin;
+        }
+
         for (@NotNull CapeStyle value : CapeStyle.getEntries()) {
             if (Objects.equals(value.getLocation(), skin.capeTexture())) {
                 if (devCape == null) {
