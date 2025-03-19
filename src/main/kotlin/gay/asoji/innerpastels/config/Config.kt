@@ -10,16 +10,19 @@ import gay.asoji.innerpastels.InnerPastels
 import gay.asoji.innerpastels.capes.CapeUtils
 import net.fabricmc.loader.api.FabricLoader
 import java.nio.file.Path
+import java.util.*
+import kotlin.io.path.createFile
+import kotlin.io.path.exists
 import kotlin.io.path.readText
 import kotlin.io.path.writeText
 
-enum class Config {
-    INSTANCE;
-    
-    private val configFile: Path = FabricLoader.getInstance().configDir.resolve("inner_pastels.json")
-    private val config: ConfigData = ConfigData.CODEC.decode(JsonOps.INSTANCE, Gson().fromJson(configFile.readText(), JsonElement::class.java))
+object Config {
+    private val configFile: Path = FabricLoader.getInstance().configDir.resolve("innerpastels.json")
+    private val config: ConfigData = if (configFile.exists()) ConfigData.CODEC.decode(JsonOps.INSTANCE, Gson().fromJson(configFile.readText(), JsonElement::class.java))
         .resultOrPartial { InnerPastels.LOGGER.error(it) }
         .orElse(Pair(ConfigData(null), null)).first;
+    else
+        ConfigData(null)
 
     init {
         if (config.capeStyle != null)
@@ -31,15 +34,20 @@ enum class Config {
     }
     
     fun save() {
+        if (!configFile.exists())
+            configFile.createFile()
+
         configFile.writeText(ConfigData.CODEC.encodeStart(JsonOps.INSTANCE, config).resultOrPartial { InnerPastels.LOGGER.error(it) }.orElseThrow().asString)
     }
     
     data class ConfigData(
         val capeStyle: CapeUtils.CapeStyle?
     ) {
+        constructor(capeStyle: Optional<CapeUtils.CapeStyle>) : this(capeStyle.orElse(null))
+
         companion object {
             val CODEC: Codec<ConfigData> = RecordCodecBuilder.create { it.group(
-                    CapeUtils.CapeStyle.CODEC.fieldOf("cape_style").forGetter(ConfigData::capeStyle)
+                    CapeUtils.CapeStyle.CODEC.optionalFieldOf("cape_style").forGetter { Optional.ofNullable(it.capeStyle) }
                 ).apply(it, ::ConfigData)
             }
         }

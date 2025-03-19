@@ -20,9 +20,8 @@ import java.util.*
 import java.util.concurrent.CompletableFuture
 import kotlin.jvm.optionals.getOrDefault
 
-enum class CapeUtils {
-    INSTANCE;
-
+object CapeUtils {
+    private const val URL = "https://raw.githubusercontent.com/asoji/CapeData/refs/heads/main/capes.json"
     private val registeredDevs: Multimap<UUID, CapeStyle> = HashMultimap.create()
 
     private var initialized = false
@@ -61,7 +60,7 @@ enum class CapeUtils {
         if (registeredDevs.containsKey(id)) {
             val capes = registeredDevs.get(id)
             capes.forEach { s ->
-                if (Config.INSTANCE.get().capeStyle == s)
+                if (Config.get().capeStyle == s)
                     return s
             }
             
@@ -69,10 +68,6 @@ enum class CapeUtils {
         }
 
         return null
-    }
-
-    companion object {
-        private const val URL = "https://raw.githubusercontent.com/asoji/CapeData/refs/heads/main/capes.json"
     }
 
     data class User(
